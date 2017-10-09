@@ -13,26 +13,13 @@ add_definitions(-DSAMPLES_DIR="${SAMPLES_DIR}")
 
 INCLUDE_DIRECTORIES(${INCLUDE_DIR})
 
-set(SOURCES
-    ${SOURCE_DIR}/value_representation.cpp
-    ${SOURCE_DIR}/dicom_dictionary.cpp
-    ${SOURCE_DIR}/tag.cpp
-    ${SOURCE_DIR}/utility.cpp
-    ${SOURCE_DIR}/parser.cpp
-    ${SOURCE_DIR}/sequence.cpp
-)
+#add project files
+file(GLOB_RECURSE SOURCES ${SOURCE_DIR}/*)
+file(GLOB_RECURSE HEADERS ${INCLUDE_DIR}/*)
 
-set(HEADERS
-    ${INCLUDE_DIR}/value_representation.hpp
-    ${INCLUDE_DIR}/dicom_dictionary.hpp
-    ${INCLUDE_DIR}/tag.hpp
-    ${INCLUDE_DIR}/utility.hpp
-    ${INCLUDE_DIR}/parser.hpp
-    ${INCLUDE_DIR}/sequence.hpp
-)
-
-file(GLOB SAMPLES ${SAMPLES_DIR}/*)
-file(GLOB RESOURCES ${RESOURCE_DIR}/*)
+#add other project files
+file(GLOB_RECURSE SAMPLES ${SAMPLES_DIR}/*)
+file(GLOB_RECURSE RESOURCES ${RESOURCE_DIR}/*)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS} ${RESOURCES} ${SAMPLES})
 target_link_libraries(${PROJECT_NAME} ${Project_LIBRARIES} )

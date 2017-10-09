@@ -34,7 +34,7 @@ TEST_CASE( "DICOM magic number", "DICM" )
 
 TEST_CASE( "Read file", "" )
 {
-    std::ifstream stream( SAMPLES_DIR "/file.dcm" );
+    std::ifstream stream( SAMPLES_DIR "/anatomic-2k/TG18-CH/TG18-CH-2k-01.dcm" );
     REQUIRE( dicom::file::is_dicom(stream) );
 
     dicom::DataSet data_set;
