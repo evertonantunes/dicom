@@ -31,8 +31,20 @@ namespace dicom
         DICOM_VR_LIST_MAKE(FD) \
         DICOM_VR_LIST_MAKE(FL) \
         DICOM_VR_LIST_MAKE(DA) \
-        DICOM_VR_LIST_MAKE(UI)
-
+        DICOM_VR_LIST_MAKE(UI) \
+        DICOM_VR_LIST_MAKE(SH) \
+        DICOM_VR_LIST_MAKE(TM) \
+        DICOM_VR_LIST_MAKE(UC) \
+        DICOM_VR_LIST_MAKE(UR) \
+        DICOM_VR_LIST_MAKE(DT) \
+        DICOM_VR_LIST_MAKE(DS) \
+        DICOM_VR_LIST_MAKE(CS) \
+        DICOM_VR_LIST_MAKE(IS) \
+        DICOM_VR_LIST_MAKE(LT) \
+        DICOM_VR_LIST_MAKE(OL) \
+        DICOM_VR_LIST_MAKE(PN) \
+        DICOM_VR_LIST_MAKE(ST) \
+        DICOM_VR_LIST_MAKE(LO)
 
     enum class ValueRepresentation : std::uint16_t
     {

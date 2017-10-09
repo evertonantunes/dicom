@@ -38,7 +38,9 @@ void dicom::parser::read(std::istream& stream, std::vector<dicom::type::Abstract
 
         if (explicit_vr)
         {
-            vr = utility::get_value<ValueRepresentation>(stream);
+            vr = static_cast<ValueRepresentation>(utility::get_value<std::uint16_t>(stream));
+            Debug(ValueRepresentation::DA);
+            Debug(vr);
 
             if (!is_valid_vr(vr))
             {
@@ -104,27 +106,27 @@ dicom::type::Abstract*dicom::parser::create_tag(const uint16_t group, const uint
     switch (vr)
     {
         case ValueRepresentation::SQ:
-        return new type::Sequence(group, element);
+            return new type::Sequence(group, element);
         case ValueRepresentation::UL:
-        return new type::BinaryFixedSyze<std::uint32_t, ValueRepresentation::UL>(group, element);
+            return new type::BinaryFixedSyze<std::uint32_t, ValueRepresentation::UL>(group, element);
         case ValueRepresentation::US:
-        return new type::BinaryFixedSyze<std::uint16_t, ValueRepresentation::US>(group, element);
+            return new type::BinaryFixedSyze<std::uint16_t, ValueRepresentation::US>(group, element);
         case ValueRepresentation::SS:
-        return new type::BinaryFixedSyze<std::int16_t, ValueRepresentation::SS>(group, element);
+            return new type::BinaryFixedSyze<std::int16_t, ValueRepresentation::SS>(group, element);
         case ValueRepresentation::SL:
-        return new type::BinaryFixedSyze<std::int32_t, ValueRepresentation::SL>(group, element);
+            return new type::BinaryFixedSyze<std::int32_t, ValueRepresentation::SL>(group, element);
         case ValueRepresentation::OF:
-        return new type::BinaryFixedSyze<std::float_t, ValueRepresentation::OF>(group, element);
+            return new type::BinaryFixedSyze<std::float_t, ValueRepresentation::OF>(group, element);
         case ValueRepresentation::OW:
-        return new type::BinaryFixedSyze<std::int16_t, ValueRepresentation::OW>(group, element);
+            return new type::BinaryFixedSyze<std::int16_t, ValueRepresentation::OW>(group, element);
         case ValueRepresentation::OD:
-        return new type::BinaryFixedSyze<double, ValueRepresentation::OD>(group, element);
+            return new type::BinaryFixedSyze<double, ValueRepresentation::OD>(group, element);
         case ValueRepresentation::FD:
-        return new type::BinaryFixedSyze<double, ValueRepresentation::FD>(group, element);
+            return new type::BinaryFixedSyze<double, ValueRepresentation::FD>(group, element);
         case ValueRepresentation::FL:
-        return new type::BinaryFixedSyze<float, ValueRepresentation::FL>(group, element);
+            return new type::BinaryFixedSyze<float, ValueRepresentation::FL>(group, element);
         case ValueRepresentation::UI:
-        return new type::UniquelyIdentify(group, element, vr);
+            return new type::UniquelyIdentify(group, element, vr);
         case ValueRepresentation::AS:
         case ValueRepresentation::AT:
         {
@@ -150,6 +152,6 @@ dicom::type::Abstract*dicom::parser::create_tag(const uint16_t group, const uint
         case ValueRepresentation::UT:
         case ValueRepresentation::UN:
         default:
-        return new type::Raw(group, element, vr);
+            return new type::Raw(group, element, vr);
     }
 }
