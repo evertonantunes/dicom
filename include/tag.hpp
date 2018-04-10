@@ -10,6 +10,7 @@
 #include "utility.hpp"
 #include "value_representation.hpp"
 #include <sstream>
+#include "uid.hpp"
 
 namespace dicom
 {

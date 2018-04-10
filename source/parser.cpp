@@ -2,6 +2,7 @@
 #include "dicom_dictionary.hpp"
 #include "sequence.hpp"
 #include "utility.hpp"
+#include "dicom_unique_identifiers.hpp"
 
 bool dicom::parser::is_dicom( std::istream &stream )
 {
@@ -83,6 +84,17 @@ void dicom::parser::read(std::istream& stream, std::vector<dicom::type::Abstract
         auto tag = create_tag(group, element, vr, size);
         tag->read(stream, size, endian, explicit_vr);
         data.push_back(tag);
+
+        if (group == 0x0002 && element == 0x0010) // TransferSyntaxUID
+        {
+            if ( const auto transfer_syntax_uid = dynamic_cast<const type::UniquelyIdentify*>(tag) )
+            {
+                if (dicom::uids::ImplicitVRLittleEndian == transfer_syntax_uid->value())
+                {
+                    explicit_vr = false;
+                }
+            }
+        }
 
         stream.peek();
     }

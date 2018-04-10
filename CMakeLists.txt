@@ -10,6 +10,8 @@ set(SAMPLES_DIR ${CMAKE_SOURCE_DIR}/samples)
 set(RESOURCE_DIR ${CMAKE_SOURCE_DIR}/resource)
 
 add_definitions(-DSAMPLES_DIR="${SAMPLES_DIR}")
+add_definitions(-DRESOURCE_DIR="${RESOURCE_DIR}")
+
 
 INCLUDE_DIRECTORIES(${INCLUDE_DIR})
 

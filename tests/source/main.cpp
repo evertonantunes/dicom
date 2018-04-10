@@ -1,7 +1,8 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "parser.hpp"
-
+#include "dicom_unique_identifiers.hpp"
+#include "dicom_dictionary.hpp"
 #include <fstream>
 
 TEST_CASE( "DICOM magic number", "DICM" )
@@ -32,8 +33,33 @@ TEST_CASE( "DICOM magic number", "DICM" )
     REQUIRE( dicom::file::is_dicom(stream) );
 }
 
+TEST_CASE( "comparing UUIDs equality", "" )
+{
+    REQUIRE(uid::Uuid("12345") == uid::Uuid("12345"));
+}
+
+TEST_CASE( "comparing UUIDs diference", "" )
+{
+    REQUIRE_FALSE(uid::Uuid("ABCDE") == uid::Uuid("12345"));
+}
+
+TEST_CASE( "comparing UUID and string diference", "" )
+{
+    REQUIRE(uid::Uuid("ABCDE") != "12345");
+}
+
+TEST_CASE( "comparing UUID and string equality", "" )
+{
+    REQUIRE(uid::Uuid("ABCDE") == "12345");
+}
+
 TEST_CASE( "Read file", "" )
 {
+    {
+        std::ifstream stream( RESOURCE_DIR "/dicom-dict.txt" );
+        dicom::dictionary::init_dictionary( stream );
+    }
+
     std::ifstream stream( SAMPLES_DIR "/anatomic-2k/TG18-CH/TG18-CH-2k-01.dcm" );
     REQUIRE( dicom::file::is_dicom(stream) );
 
