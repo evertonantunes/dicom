@@ -128,7 +128,7 @@ dicom::type::Abstract*dicom::parser::create_tag(const uint16_t group, const uint
         case ValueRepresentation::SL:
             return new type::BinaryFixedSyze<std::int32_t, ValueRepresentation::SL>(group, element);
         case ValueRepresentation::OF:
-            return new type::BinaryFixedSyze<std::float_t, ValueRepresentation::OF>(group, element);
+            return new type::BinaryFixedSyze<float, ValueRepresentation::OF>(group, element);
         case ValueRepresentation::OW:
             return new type::BinaryFixedSyze<std::int16_t, ValueRepresentation::OW>(group, element);
         case ValueRepresentation::OD:
